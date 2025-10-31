@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Page Replica Generator</title>
+  <style>
+    /* ====== RESET & BASE ====== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 360px;
+      padding: 24px;
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #eef2ff, #e0e7ff);
+      color: #1e1e1e;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #1f2937;
+      text-align: center;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    h3::after {
+      content: "";
+      display: block;
+      width: 40px;
+      height: 3px;
+      margin: 8px auto 0;
+      background: linear-gradient(90deg, #6366f1, #8b5cf6);
+      border-radius: 2px;
+    }
+
+    /* ====== CARD CONTAINER ====== */
+    .card {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(16px);
+      border-radius: 14px;
+      padding: 20px;
+      width: 100%;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    /* ====== INPUT FIELDS ====== */
+    .input-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    input[type="password"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 14px;
+      background: rgba(255, 255, 255, 0.7);
+      transition: all 0.2s ease;
+    }
+
+    input[type="password"]:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    }
+
+    .hint {
+      margin-top: 5px;
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .hint a {
+      color: #6366f1;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .hint a:hover {
+      text-decoration: underline;
+    }
+
+    /* ====== BUTTON ====== */
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      transition: all 0.25s ease;
+      margin-top: 10px;
+    }
+
+    button:hover:not(:disabled) {
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.25);
+    }
+
+    button:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    /* ====== STATUS & PROGRESS ====== */
+    #status {
+      margin-top: 16px;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    #status.success {
+      background: #dcfce7;
+      color: #166534;
+      display: block;
+    }
+
+    #status.error {
+      background: #fee2e2;
+      color: #991b1b;
+      display: block;
+    }
+
+    #status.info {
+      background: #dbeafe;
+      color: #1e40af;
+      display: block;
+    }
+
+    #progress {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #6b7280;
+      text-align: center;
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h3>PageMirror</h3>
+
+  <div class="card">
+    <div class="input-group">
+      <label for="apiKey">Gemini API Key</label>
+      <input type="password" id="apiKey" placeholder="Enter your API key" />
+      <div class="hint">
+        Get your free API key from
+        <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a>
+      </div>
+    </div>
+
+    <button id="captureBtn">Capture & Generate</button>
+
+    <div id="status"></div>
+    <div id="progress"></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+
+</html>
